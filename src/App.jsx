@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/Home";
 import ProductsPage from "./pages/Products";
 import CartPage from "./pages/Cart";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import ProductsDetailsPage from "./pages/ProductsDetails";
+import MainLayout from "./layouts/Main";
 
 const router = createBrowserRouter([
   {
