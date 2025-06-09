@@ -9,7 +9,7 @@ import MainLayout from "./layouts/Main";
 import ErrorPage from "./pages/errors/Error";
 import ServerErrorPage from "./pages/errors/ServerError";
 import NotFoundPage from "./pages/errors/NotFound";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import requests from "./api/apiClient";
 import { useCartContext } from "./context/CartContext";
 
