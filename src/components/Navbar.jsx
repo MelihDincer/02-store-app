@@ -49,7 +49,7 @@ export default function Navbar() {
             size="large"
             edge="start"
           >
-            <Badge badgeContent={itemCount} color="secondary">
+            <Badge badgeContent={itemCount} color="primary">
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
