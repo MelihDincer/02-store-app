@@ -12,12 +12,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
     defaultValues: {
-      username: "melihdincer",
-      password: "123456",
+      username: "",
+      password: "",
     },
   });
+
+  console.log(errors);
 
   function handleForm(data) {
     console.log(data);
@@ -58,10 +64,17 @@ export default function LoginPage() {
         <Box
           component="form"
           onSubmit={handleSubmit(handleForm)}
+          noValidate
           sx={{ mb: 2 }}
         >
           <TextField
-            {...register("username")}
+            {...register("username", {
+              required: "username zorunlu alan",
+              minLength: {
+                value: 3,
+                message: "username min. 3 karakter olmalıdır.",
+              },
+            })}
             //value={values.username}
             //onChange={(e) => setUsername(e.target.value)}
             //onChange={handleInputChange}
@@ -72,9 +85,17 @@ export default function LoginPage() {
             required
             autoFocus
             sx={{ mb: 2 }}
+            error={!!errors.username}
+            helperText={errors.username?.message}
           />
           <TextField
-            {...register("password")}
+            {...register("password", {
+              required: "password zorunlu alan",
+              minLength: {
+                value: 6,
+                message: "password min. 6 karakter olmalıdır.",
+              },
+            })}
             //value={values.password}
             //onChange={handleInputChange}
             //name="password"
@@ -83,8 +104,9 @@ export default function LoginPage() {
             size="small"
             fullWidth
             required
-            autoFocus
             sx={{ mb: 2 }}
+            error={!!errors.password}
+            helperText={errors.password?.message}
           />
           <Button
             type="submit"
@@ -92,6 +114,7 @@ export default function LoginPage() {
             fullWidth
             sx={{ mt: 2 }}
             color="primary"
+            disabled={!isValid}
           >
             Submit
           </Button>
