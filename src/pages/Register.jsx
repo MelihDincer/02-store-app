@@ -8,8 +8,54 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import requests from "../api/apiClient";
+import { useNavigate } from "react-router";
 
 export default function RegisterPage() {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  function handleForm(data) {
+    requests.account
+      .register(data)
+      .then((result) => {
+        console.log(result);
+        navigate("/login");
+      })
+      .catch((error) => console.log(error));
+  }
+  // const [username, setUsername] = useState("melihdincer");
+  // const [password, setPassword] = useState("123456");
+
+  //Klasik Yöntem Start
+  // const [values, setValues] = useState({
+  //   username: "",
+  //   password: "",
+  // });
+
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   console.log(values);
+  // }
+
+  // function handleInputChange(e) {
+  //   const { name, value } = e.target;
+  //   setValues({ ...values, [name]: value });
+  // }
+  //Klasik Yöntem Finish
+
   return (
     <Container maxWidth="xs">
       <Paper sx={{ padding: 2 }} elevation={3}>
@@ -23,34 +69,66 @@ export default function RegisterPage() {
         >
           Register
         </Typography>
-        <Box component="form" sx={{ mb: 2 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(handleForm)}
+          noValidate
+          sx={{ mb: 2 }}
+        >
           <TextField
-            name="username"
+            {...register("username", {
+              required: "username zorunlu alan",
+              minLength: {
+                value: 3,
+                message: "username min. 3 karakter olmalıdır.",
+              },
+            })}
             label="Enter username"
             size="small"
             fullWidth
             required
             autoFocus
             sx={{ mb: 2 }}
+            error={!!errors.username}
+            helperText={errors.username?.message}
           />
+
           <TextField
-            name="email"
-            type="email"
+            {...register("email", {
+              required: "email zorunlu alan",
+              minLength: {
+                value: 3,
+                message: "email min. 3 karakter olmalıdır.",
+              },
+            })}
             label="Enter email"
             size="small"
             fullWidth
             required
             sx={{ mb: 2 }}
+            error={!!errors.email}
+            helperText={errors.email?.message}
           />
+
           <TextField
-            name="password"
+            {...register("password", {
+              required: "password zorunlu alan",
+              minLength: {
+                value: 6,
+                message: "password min. 6 karakter olmalıdır.",
+              },
+            })}
+            //value={values.password}
+            //onChange={handleInputChange}
+            //name="password"
             type="password"
             label="Enter password"
             size="small"
             fullWidth
             required
-            autoFocus
             sx={{ mb: 2 }}
+            error={!!errors.password}
+            helperText={errors.password?.message}
           />
           <Button
             type="submit"
@@ -58,6 +136,7 @@ export default function RegisterPage() {
             fullWidth
             sx={{ mt: 2 }}
             color="primary"
+            disabled={!isValid}
           >
             Submit
           </Button>

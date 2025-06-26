@@ -23,8 +23,6 @@ export default function LoginPage() {
     },
   });
 
-  console.log(errors);
-
   function handleForm(data) {
     console.log(data);
   }
