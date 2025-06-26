@@ -10,8 +10,12 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import requests from "../api/apiClient";
+import { useNavigate } from "react-router";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -24,7 +28,14 @@ export default function LoginPage() {
   });
 
   function handleForm(data) {
-    console.log(data);
+    requests.account
+      .login(data)
+      .then((result) => {
+        console.log(result);
+        localStorage.setItem("user", JSON.stringify(result));
+        navigate("/");
+      })
+      .catch((error) => console.log(error));
   }
   // const [username, setUsername] = useState("melihdincer");
   // const [password, setPassword] = useState("123456");
