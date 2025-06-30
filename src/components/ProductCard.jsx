@@ -27,7 +27,7 @@ export default function ProductCard({ product }) {
       <CardActionArea component={Link} to={"/products/" + product.id}>
         <CardMedia
           sx={{ height: 160, backgroundSize: "contain" }}
-          image={`http://localhost:5000/images/${product.image}`}
+          image={`http://localhost:5001/images/${product.image}`}
         />
         <CardContent>
           <Typography
