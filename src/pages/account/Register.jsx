@@ -3,18 +3,22 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Container,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import requests from "../../api/apiClient";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "./accountSlice";
 
 export default function RegisterPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { status } = useSelector((state) => state.account);
+
   const {
     register,
     handleSubmit,
@@ -28,13 +32,7 @@ export default function RegisterPage() {
   });
 
   function handleForm(data) {
-    requests.account
-      .register(data)
-      .then((result) => {
-        console.log(result);
-        navigate("/login");
-      })
-      .catch((error) => console.log(error));
+    dispatch(registerUser(data));
   }
   // const [username, setUsername] = useState("melihdincer");
   // const [password, setPassword] = useState("123456");
@@ -138,7 +136,7 @@ export default function RegisterPage() {
             color="primary"
             disabled={!isValid}
           >
-            Submit
+            {status === "pending" ? <CircularProgress size="25px" /> : "Submit"}
           </Button>
         </Box>
       </Paper>

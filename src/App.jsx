@@ -4,7 +4,6 @@ import ProductsPage from "./pages/Products";
 import LoginPage from "./pages/account/Login";
 import RegisterPage from "./pages/account/Register";
 import ProductsDetailsPage from "./pages/ProductsDetails";
-import MainLayout from "./layouts/Main";
 import ErrorPage from "./pages/errors/Error";
 import ServerErrorPage from "./pages/errors/ServerError";
 import NotFoundPage from "./pages/errors/NotFound";
@@ -14,6 +13,7 @@ import CartPage from "./pages/cart/Cart";
 import { useDispatch } from "react-redux";
 import { setCart } from "./pages/cart/cartSlice";
 import { logout, setUser } from "./pages/account/accountSlice";
+import MainLayout from "./layouts/Main";
 
 export const router = createBrowserRouter([
   {
